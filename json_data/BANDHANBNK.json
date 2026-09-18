@@ -1,0 +1,178 @@
+{
+    "company": "BANDHANBNK",
+    "quarterly_results": {
+        "headers": [
+            "Metric"
+        ],
+        "rows": [
+            [
+                "Revenue"
+            ],
+            [
+                "Interest"
+            ],
+            [
+                "Expenses"
+            ],
+            [
+                "Financing Profit"
+            ],
+            [
+                "Financing Margin %"
+            ],
+            [
+                "Other Income"
+            ],
+            [
+                "Depreciation"
+            ],
+            [
+                "Profit before tax"
+            ],
+            [
+                "Tax %"
+            ],
+            [
+                "Net Profit"
+            ],
+            [
+                "EPS in Rs"
+            ],
+            [
+                "Gross NPA %"
+            ],
+            [
+                "Net NPA %"
+            ],
+            [
+                "Raw PDF"
+            ]
+        ]
+    },
+    "profit_loss": {
+        "headers": [
+            "Metric"
+        ],
+        "rows": [
+            [
+                "Revenue"
+            ],
+            [
+                "Interest"
+            ],
+            [
+                "Expenses"
+            ],
+            [
+                "Financing Profit"
+            ],
+            [
+                "Financing Margin %"
+            ],
+            [
+                "Other Income"
+            ],
+            [
+                "Depreciation"
+            ],
+            [
+                "Profit before tax"
+            ],
+            [
+                "Tax %"
+            ],
+            [
+                "Net Profit"
+            ],
+            [
+                "EPS in Rs"
+            ],
+            [
+                "Dividend Payout %"
+            ]
+        ]
+    },
+    "balance_sheet": {
+        "headers": [
+            "Metric"
+        ],
+        "rows": [
+            [
+                "Equity Capital"
+            ],
+            [
+                "Reserves"
+            ],
+            [
+                "Borrowing"
+            ],
+            [
+                "Other Liabilities"
+            ],
+            [
+                "Total Liabilities"
+            ],
+            [
+                "Fixed Assets"
+            ],
+            [
+                "CWIP"
+            ],
+            [
+                "Investments"
+            ],
+            [
+                "Other Assets"
+            ],
+            [
+                "Total Assets"
+            ]
+        ]
+    },
+    "cash_flow": {
+        "headers": [
+            "Metric"
+        ],
+        "rows": [
+            [
+                "Cash from Operating Activity"
+            ],
+            [
+                "Cash from Investing Activity"
+            ],
+            [
+                "Cash from Financing Activity"
+            ],
+            [
+                "Net Cash Flow"
+            ],
+            [
+                "Free Cash Flow"
+            ],
+            [
+                "CFO/OP"
+            ]
+        ]
+    },
+    "ratios_table": {
+        "headers": [
+            "Metric"
+        ],
+        "rows": [
+            [
+                "ROE %"
+            ]
+        ]
+    },
+    "ratios": {
+        "Market Cap": "₹ Cr.",
+        "Current Price": "₹",
+        "High / Low": "₹ /",
+        "Stock P/E": "",
+        "Book Value": "₹",
+        "Dividend Yield": "%",
+        "ROCE": "%",
+        "ROE": "%",
+        "Face Value": "₹"
+    }
+}

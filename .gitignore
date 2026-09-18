@@ -1,0 +1,18 @@
+# environment
+.env
+.venv/
+venv/
+
+# claude code
+.claude/
+
+# output data
+
+
+# python
+__pycache__/
+*.pyc
+*.pyo
+
+# vector db
+vector_db/

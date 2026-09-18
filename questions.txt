@@ -1,0 +1,169 @@
+1. The Retail / Casual Investor POV
+What is the current P/E ratio of X, and is it considered high or low compared to its 5-year historical average? 
+Can you look at the last few annual reports and give me a list of companies that have consistently grown their net profit every year for the past 5 years while keeping a high dividend yield? 
+Does this X company have too much debt on its balance sheet? Please explain its debt-to-equity ratio using data from its latest quarterly report like I'm a beginner.
+What does "Operating Profit Margin" mean on a company's P&L statement, and why should a retail investor care if it goes up?
+How can I tell if a company is making more sales this year compared to last year by looking at its annual report?
+What does it mean with company's Price-to-Book (P/B) 
+What is market capitalization of x company
+If a company announces a 1:1 bonus share issue in its corporate filings, does it automatically double the value of my investment?
+Why is the "Face Value" of an equity stock usually much lower than its actual trading price on the stock exchange?
+How can I read a basic quarterly earnings report summary without getting confused by corporate jargon?
+If a company reports a massive net profit increase but its operating cash flow is negative, is that a warning sign?
+If a company has a lot of debt but its profits are growing very fast, should a beginner investor still avoid it?
+Why do listed companies release their financial reports every single quarter instead of just once a year?
+What is Earnings Per Share (EPS), and how do I use it to compare the performance of two different companies?
+What does it mean when a company's balance sheet shows a "Negative Cash Flow from Investing Activities"?
+Is a high Return on Equity (ROE) always a definitive sign that a company is a safe and great investment?
+How do I check if a company's operating expenses are growing at a faster rate than its revenue?
+What is the dividend payout ratio, and how does it tell me if a company can keep paying dividends in the future?
+If a company's sales drop by 5% but its net profit increases by 10%, how did they manage to make more money?
+What is an Annual Report, and which specific sections should a normal retail investor read first to save time?
+What does "Other Income" mean in a quarterly report, and why is it separate from the main revenue?
+Why would a company decide to buy back its own shares from the market using its profit reserves?
+What does the current asset ratio tell me about a company's ability to handle its short-term bills?
+How does rising inflation typically impact a normal consumer goods (FMCG) company's net profit margin?
+What are "Reserves and Surplus" on a balance sheet, and can a company use them to pay out cash dividends?
+2. The Equity Research Analyst POV 
+Based on 10 years of normalized financial data from the company's filings, build a 3-stage Discounted Cash Flow (DCF) model for company x. Assume a WACC of 10.5%, a near-term growth rate of 12%, and a terminal growth rate of 4%. Extract the free cash flow to equity (FCFE) directly from their last three audited cash flow statements.
+Deconstruct  x Return on Equity (ROE) over the last 4 quarters. Break down whether their ROE expansion or contraction is structurally driven by net profit margins, asset turnover, or changes in financial leverage on the balance sheet.
+Analyze the recent corporate announcement regarding the management change at x. Cross-reference this text with the footnotes of their last annual report and their institutional shareholding patterns to evaluate potential execution risks.
+Given the current USDINR spot rate at 96.3450 and futures at 96.6400, project how the localized margin expansion will reflect in the upcoming Q1 P&L statements for large-cap IT exporters versus mid-tier IT firms.
+Extract and normalize EBITDA from the latest annual report by stripping out non-recurring adjustments, fair-value gains, and exceptional "Other Income" entries.
+Evaluate capital allocation efficiency over a 7-year horizon by comparing the company's Return on Capital Employed (ROCE) against its calculated Weighted Average Cost of Capital (WACC).
+Analyze the structural variance between a company's reported Profit After Tax (PAT) and its Free Cash Flow to Firm (FCFF) over a complete 5-year business cycle.
+Assess the structural changes in gross margins caused by raw material input price shifts, as detailed in the inventory valuation footnotes of the annual report.
+Calculate a firm’s Sustainable Growth Rate (SGR) based on its current retention ratio and asset turnover metrics extracted from its financial database.
+What operational risks or inefficiencies are indicated if a manufacturing stock's Days Inventory Outstanding (DIO) increases by 15 days year-over-year?
+Audit the related-party transactions section in the footnotes of the annual report to identify potential value-leaking mechanisms or non-arms-length transfers.
+Project the terminal value sensitivity of an equity valuation under varying WACC scenarios (+/- 100 bps) for a high-growth mid-cap stock.
+Analyze the revenue recognition criteria outlined in the accounting policies footnote to check for potential aggressive top-line booking.
+Evaluate the management's policy on capitalization of research and development (R&D) expenditures on the balance sheet versus direct expensing on the P&L statement.
+Perform a horizontal analysis on selling, general, and administrative (SG&A) expenses over 8 quarters to evaluate the presence of operational leverage.
+Analyze segment reporting data in the quarterly filings to determine which business vertical or geographic region is driving core margin expansion.
+Reconcile the statutory corporate tax rate with the firm's true effective tax rate using the tax reconciliation footnote found in the audited statements.
+Evaluate the institutional shareholder tracking data over 4 quarters to see if long-term domestic mutual funds are expanding or distributing stakes.
+Quantify the dilutive impact of expanding Employee Stock Option Plans (ESOPs) on the company's long-term diluted Earnings Per Share (EPS).
+Interpret the Management Discussion and Analysis (MD&A) section of the annual report to extract internal metrics on plant capacity utilization.
+The Credit Analyst & Risk Manager POV 
+Screen the fundamental database for companies with a market cap above ₹10,000 Crores that exhibit a Debt-to-Equity ratio greater than 1.5 alongside a declining Interest Coverage Ratio on their P&L for three consecutive quarters.
+Scan the footnotes and regulatory filings of this stock for sudden spikes in contingent liabilities, capital commitments, or pledged promoter shares that are not explicitly captured in the primary balance sheet debt ratios.
+Calculate the Free Cash Flow (FCF) to Operating Cash Flow (OCF) ratio for this company over the past 3 fiscal years. Is their cash generation strong enough to service their upcoming long-term debt maturities without requiring a secondary equity dilution or refinancing? 
+Analyze the debt maturity profile detailed in the financial footnotes to assess immediate refinancing risks over the next 18 months.
+Analyze the Cash Conversion Cycle (CCC) trend over 5 years to flag potential operational traps or bottlenecks in working capital.
+Evaluate the financial stability risk if promoter equity pledges increase by more than 15% within a single quarter.
+Evaluate financial flexibility by analyzing unutilized fund-based bank credit lines relative to total near-term debt obligations.
+Review corporate filings for technical defaults, delayed coupon payments, or explicit covenant breaches mentioned within financial notes.
+Calculate the Working Capital to Total Assets ratio to evaluate immediate liquid reserve depth against systemic macroeconomic shocks.
+Analyze non-operating cash flow components to ensure core business operations are not burning cash silently behind the scenes.
+Assess structural cross-default clauses embedded across parent company frameworks and outstanding subsidiary debt agreements.
+Evaluate the downside risk of raw material cost escalation clauses on cash flow stability across multi-year infrastructure execution contracts.
+Review the subsequent events footnotes for material post-balance sheet disclosures that could negatively affect the firm’s liquidity position.
+
+
+Deterministic questions
+ID
+Retail Focus 
+User Query Pattern 
+Deterministic Calculation / Logic Engine
+1
+Consistent Top-Line Sales
+"Is Stock X pulling in more sales year after year, or is the market losing interest in its products?"
+Evaluates consecutive annual trends over a 3-year trailing horizon: Sales_T0 > Sales_T-1 > Sales_T-2
+2
+Core Bottom-Line Earnings
+"Is Stock X expanding its final net profits over time, or are earnings shrinking for investors?"
+Verifies sequential bottom-line compounding across current and prior years: Net Profit_T0 > Net Profit_T-1
+3
+Core Pricing Power
+"Can Stock X keep its production costs low, or are its operational profit margins getting squeezed?"
+Extracts core pricing volatility by checking margins delta: Margin Delta = OPM%_T0 - OPM%_T-1
+4
+Expense Overrun Tracking
+"Are Stock X's core expenses running out of control and growing faster than its actual sales income?"
+Computes independent annual percentage trajectories: Growth = ((Value_T0 - Value_T-1) / Value_T-1) * 100. Flags warning if Expense Growth > Sales Growth.
+5
+Debt Liability Accumulation
+"Is Stock X piling on an unsafe mountain of new borrowings, or are they cleaning up their balance sheet?"
+Evaluates the net chronological shift in total long and short term loans: Debt Delta = Borrowings_T0 - Borrowings_T-1
+6
+Savings Safety Cushion
+"Does Stock X have enough accumulated cash savings in its reserves to safely cover its total long-term debt?"
+Measures structural resource security buffers: Cushion Ratio = Reserves / Borrowings
+7
+Earnings Quality Audit
+"Is Stock X generating actual physical cash flows from its operations, or are its profits just entries on paper?"
+Subtracts statutory accounting net profit from true operational cash flows: Divergence = Cash from Operating Activity - Net Profit
+8
+Dividend Cash Reliability
+"Does Stock X consistently share its earnings with its retail investors as regular dividend cash?"
+Validates active dividend continuity across sequential tracking timelines: True if Dividend Payout% > 0 for all past 3 years.
+9
+Capital Expansion Progress
+"Is Stock X actively completing its factory build-outs, or is too much capital stuck in unfinished projects?"
+Measures project commercialization density rates: Asset Transfer Ratio = Capital Work in Progress / Fixed Assets
+10
+Warehouse Clearance Velocity
+"Is Stock X clearing out its unsold products quickly from warehouses, or is inventory sitting stale?"
+Evaluates supply chain speed trends across 3 reporting cycles: Trend = Inventory Days_T0 < Inventory Days_T-1 (Lower is better)
+11
+Customer Collection Window
+"Are Stock X's clients paying off their bills on time, or is cash getting locked up in unpaid customer debts?"
+Monitors counterparty collection efficiency cycles: Trend = Debtor Days_T0 < Debtor Days_T-1 (Lower is better)
+12
+Supplier Credit Stretching
+"Is Stock X taking longer to clear its dues with its raw material suppliers to stretch out its internal cash?"
+Direct chronological trend tracking of working capital funding horizons: Analyzes the Days Payable Value Stream Over Time.
+13
+Combined Net Money Trap
+"How many total days does it take for Stock X to turn its raw material investments back into cash?"
+Direct point extraction, or derived cross-addition calculation: CCC = Debtor Days + Inventory Days - Days Payable
+14
+Multi-Year Topline Compounding
+"What is the 3-year compounded annualized growth rate (CAGR) of Stock X's top-line revenue?"
+Executes multi-period geometric compound annualized scaling: Sales CAGR = (Sales_T0 / Sales_T-3)^(1/3) - 1
+15
+Multi-Year Net Earnings
+"What is the 5-year compounded annualized growth rate (CAGR) of Stock X's bottom-line net profit?"
+Evaluates long-horizon annualized bottom-line compounding tracks: Profit CAGR = (Net Profit_T0 / Net Profit_T-5)^(1/5) - 1
+16
+Interest Service Cushion
+"Are Stock X's core operating profits robust enough to easily handle its annual interest loan bills?"
+Assesses structural earnings depth relative to contractual leverage servicing: Interest Cushion Ratio = Operating Profit / Interest
+17
+Non-Core Profit Distortions
+"Are Stock X's final profits driven by its actual business operations, or inflated by random side income?"
+Isolates core earning quality against non-operating cash entries: Distortion % = (Other Income / Net Profit) * 100
+18
+Statutory Tax Drain Burden
+"What percentage of Stock X's pre-tax corporate profits is lost to government tax collections?"
+Extracts relative local tax leakage metrics directly from statement rows: Effective Tax Rate % = (Tax / Profit before tax) * 100
+19
+Equity Supply Dilution Track
+"Is Stock X diluting retail value by printing new shares, or is ownership staying tight and protected?"
+Audits core ownership pool changes across the latest tracking interval: Dilution Flag = True if Share Capital_T0 > Share Capital_T-1
+20
+External Asset Reserves Hoard
+"Is Stock X keeping its surplus capital idle in bank instruments, or deploying it out into investments?"
+Scalar point-in-time lookup evaluating total non-operational corporate holdings: Investment Asset Base = Investments Value at T0
+21
+Short-Term Bill Liquidity
+"Does Stock X have enough short-term fluid assets to cover its upcoming bills due within the year?"
+Pulls liquid resource limits to verify defensive workspace safety margins: Current Liquidity Ratio = Current Assets / Current Liabilities
+22
+Shareholder Resource Efficiency
+"How many rupees of profit is management squeezing out for every 100 rupees invested by shareholders?"
+Extracts baseline return metrics allocated back to core equity holders: Shareholder Return Profile = ROE% Point Lookup at T0
+23
+Total Capital Pool Yield
+"How efficient is Stock X at generating returns on its total combined capital pool, including loans?"
+Extracts holistic capital usage yield before debt and leverage scaling adjustments: Broad Capital Return Profile = ROCE% Point Lookup at T0
+24
+Immediate Quarterly Turnaround
+"Did Stock X experience a sudden, high-momentum profit recovery in its latest quarterly financial update?"
+Measures immediate high-frequency sequential trend changes: QoQ Momentum % = ((Net Profit_Q0 - Net Profit_Q-1) / Net Profit_Q-1) * 100
+25
+Multi-Metric Retail Pass-Gate
+"Does Stock X pass the three major retail tests: Sales CAGR over 10%, OPM above 15%, and Debt-to-Equity below 0.8?"
+Executes composite Boolean relational screening pipelines: Pass if (Sales CAGR 3yr > 0.10) AND (OPM%_T0 > 15) AND (Borrowings / (Share Capital + Reserves) < 0.8)
+

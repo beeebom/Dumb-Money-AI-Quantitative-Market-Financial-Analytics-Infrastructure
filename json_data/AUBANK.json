@@ -1,0 +1,310 @@
+{
+    "company": "AUBANK",
+    "quarterly_results": {
+        "headers": [
+            "Metric"
+        ],
+        "rows": [
+            [
+                "Revenue"
+            ],
+            [
+                "Interest"
+            ],
+            [
+                "Expenses"
+            ],
+            [
+                "Financing Profit"
+            ],
+            [
+                "Financing Margin %"
+            ],
+            [
+                "Other Income"
+            ],
+            [
+                "Depreciation"
+            ],
+            [
+                "Profit before tax"
+            ],
+            [
+                "Tax %"
+            ],
+            [
+                "Net Profit"
+            ],
+            [
+                "EPS in Rs"
+            ],
+            [
+                "Gross NPA %"
+            ],
+            [
+                "Net NPA %"
+            ],
+            [
+                "Raw PDF"
+            ]
+        ]
+    },
+    "profit_loss": {
+        "headers": [
+            "Metric",
+            "Mar 2014",
+            "Mar 2015",
+            "Mar 2016",
+            "Mar 2017"
+        ],
+        "rows": [
+            [
+                "Revenue",
+                "667",
+                "813",
+                "1,206",
+                "1,429"
+            ],
+            [
+                "Interest",
+                "317",
+                "334",
+                "492",
+                "531"
+            ],
+            [
+                "Expenses",
+                "201",
+                "227",
+                "339",
+                "422"
+            ],
+            [
+                "Financing Profit",
+                "148",
+                "252",
+                "375",
+                "476"
+            ],
+            [
+                "Financing Margin %",
+                "22%",
+                "31%",
+                "31%",
+                "33%"
+            ],
+            [
+                "Other Income",
+                "4",
+                "-4",
+                "8",
+                "612"
+            ],
+            [
+                "Depreciation",
+                "4",
+                "8",
+                "10",
+                "6"
+            ],
+            [
+                "Profit before tax",
+                "149",
+                "241",
+                "373",
+                "1,082"
+            ],
+            [
+                "Tax %",
+                "32%",
+                "33%",
+                "34%",
+                "30%"
+            ],
+            [
+                "Net Profit",
+                "101",
+                "163",
+                "247",
+                "762"
+            ],
+            [
+                "EPS in Rs",
+                "11.65",
+                "18.49",
+                "27.95",
+                "13.40"
+            ],
+            [
+                "Dividend Payout %",
+                "0%",
+                "0%",
+                "0%",
+                "0%"
+            ]
+        ]
+    },
+    "balance_sheet": {
+        "headers": [
+            "Metric",
+            "Mar 2014",
+            "Mar 2015",
+            "Mar 2016",
+            "Mar 2017"
+        ],
+        "rows": [
+            [
+                "Equity Capital",
+                "43",
+                "44",
+                "44",
+                "284"
+            ],
+            [
+                "Reserves",
+                "606",
+                "794",
+                "1,022",
+                "1,703"
+            ],
+            [
+                "Borrowing",
+                "2,478",
+                "3,588",
+                "6,232",
+                "7,071"
+            ],
+            [
+                "Other Liabilities",
+                "249",
+                "397",
+                "634",
+                "753"
+            ],
+            [
+                "Total Liabilities",
+                "3,377",
+                "4,823",
+                "7,933",
+                "9,812"
+            ],
+            [
+                "Fixed Assets",
+                "23",
+                "24",
+                "30",
+                "36"
+            ],
+            [
+                "CWIP",
+                "0",
+                "0",
+                "0",
+                "240"
+            ],
+            [
+                "Investments",
+                "65",
+                "65",
+                "89",
+                "2,150"
+            ],
+            [
+                "Other Assets",
+                "3,289",
+                "4,733",
+                "7,813",
+                "7,386"
+            ],
+            [
+                "Total Assets",
+                "3,377",
+                "4,823",
+                "7,933",
+                "9,812"
+            ]
+        ]
+    },
+    "cash_flow": {
+        "headers": [
+            "Metric",
+            "Mar 2014",
+            "Mar 2015",
+            "Mar 2016",
+            "Mar 2017"
+        ],
+        "rows": [
+            [
+                "Cash from Operating Activity",
+                "-665",
+                "-1,125",
+                "-1,719",
+                "884"
+            ],
+            [
+                "Cash from Investing Activity",
+                "593",
+                "3",
+                "39",
+                "-1,800"
+            ],
+            [
+                "Cash from Financing Activity",
+                "-148",
+                "1,153",
+                "1,958",
+                "1,022"
+            ],
+            [
+                "Net Cash Flow",
+                "-220",
+                "31",
+                "278",
+                "106"
+            ],
+            [
+                "Free Cash Flow",
+                "-672",
+                "-1,135",
+                "-1,734",
+                "713"
+            ],
+            [
+                "CFO/OP",
+                "-133%",
+                "-179%",
+                "-185%",
+                "120%"
+            ]
+        ]
+    },
+    "ratios_table": {
+        "headers": [
+            "Metric",
+            "Mar 2014",
+            "Mar 2015",
+            "Mar 2016",
+            "Mar 2017"
+        ],
+        "rows": [
+            [
+                "ROE %",
+                "16%",
+                "22%",
+                "26%",
+                "22%"
+            ]
+        ]
+    },
+    "ratios": {
+        "Market Cap": "₹ 72,917 Cr.",
+        "Current Price": "₹ 974",
+        "High / Low": "₹ 1,080 / 681",
+        "Stock P/E": "214",
+        "Book Value": "₹",
+        "Dividend Yield": "0.10 %",
+        "ROCE": "12.4 %",
+        "ROE": "22.3 %",
+        "Face Value": "₹ 10.0"
+    }
+}
