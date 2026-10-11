@@ -19,6 +19,7 @@ Results appended to eval_results.json with timestamp.
 
 import sys
 import json
+import re
 import time
 from datetime import datetime
 from pathlib import Path
@@ -39,6 +40,39 @@ def estimate_cost(input_tokens: int, output_tokens: int) -> float:
 def count_tokens_approx(text: str) -> int:
     """~4 chars per token — good enough for cost estimates."""
     return max(1, len(text) // 4)
+
+
+# ─── RATE-LIMIT HANDLING ──────────────────────────────────────────────────────
+# The free tier allows 5 requests/min on gemini-2.5-flash and each question costs
+# three calls (generate SQL + synthesize + judge). Without backoff, quota errors
+# get recorded as agent failures and the scores become meaningless.
+
+RETRYABLE = ("429", "RESOURCE_EXHAUSTED", "503", "UNAVAILABLE")
+
+
+def call_with_retry(fn, *, max_attempts=5, base_delay=20):
+    """Runs fn(), retrying transient quota/availability errors with backoff.
+
+    Honors the server-provided retryDelay when present, otherwise backs off
+    exponentially. Non-retryable errors are re-raised immediately.
+    """
+    for attempt in range(1, max_attempts + 1):
+        try:
+            return fn()
+        except Exception as e:
+            message = str(e)
+            if not any(code in message for code in RETRYABLE):
+                raise
+            if attempt == max_attempts:
+                raise
+
+            delay = base_delay * (2 ** (attempt - 1))
+            match = re.search(r"'retryDelay':\s*'(\d+(?:\.\d+)?)s'", message)
+            if match:
+                delay = float(match.group(1)) + 2
+
+            print(f"    [rate-limit] attempt {attempt}/{max_attempts}, waiting {delay:.0f}s...")
+            time.sleep(delay)
 
 
 # ─── LLM-AS-JUDGE ─────────────────────────────────────────────────────────────
@@ -72,11 +106,11 @@ def judge_answer(client, question: str, answer: str, data_hint: str = "") -> dic
 
     try:
         from google.genai import types
-        response = client.models.generate_content(
+        response = call_with_retry(lambda: client.models.generate_content(
             model="gemini-2.5-flash",
             contents=prompt,
             config=types.GenerateContentConfig(temperature=0.0)
-        )
+        ))
         raw = response.text.strip()
         # strip markdown fences if present
         raw = raw.replace("```json", "").replace("```", "").strip()
@@ -192,7 +226,9 @@ def evaluate_agent(tests):
             try:
                 # Step 1: Generate SQL
                 t_sql_start = time.time()
-                sql = generate_sql(client, system_prompt, test["question"], error_feedback=last_error)
+                sql = call_with_retry(lambda: generate_sql(
+                    client, system_prompt, test["question"], error_feedback=last_error
+                ))
                 lat_sql = round(time.time() - t_sql_start, 2)
 
                 total_input_tokens  += count_tokens_approx(system_prompt + test["question"])
@@ -208,7 +244,9 @@ def evaluate_agent(tests):
                 if rows:
                     # Step 3: Synthesize
                     t_synth_start = time.time()
-                    answer = synthesize_answer(client, test["question"], columns, rows)
+                    answer = call_with_retry(lambda: synthesize_answer(
+                        client, test["question"], columns, rows
+                    ))
                     lat_synth = round(time.time() - t_synth_start, 2)
 
                     total_input_tokens  += count_tokens_approx(test["question"] + str(rows[:50]))
@@ -356,11 +394,11 @@ def evaluate_rag(tests):
                 from google.genai import types as gentypes
                 t_gen_start = time.time()
                 prompt      = build_prompt(test["question"], chunks)
-                response    = gemini.models.generate_content(
+                response    = call_with_retry(lambda: gemini.models.generate_content(
                     model="gemini-2.5-flash",
                     contents=prompt,
                     config=gentypes.GenerateContentConfig(temperature=0.0)
-                )
+                ))
                 answer      = response.text.strip()
                 lat_gen     = round(time.time() - t_gen_start, 2)
 

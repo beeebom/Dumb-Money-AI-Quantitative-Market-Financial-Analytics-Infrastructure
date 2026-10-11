@@ -4,6 +4,7 @@ from playwright.sync_api import sync_playwright
 from bs4 import BeautifulSoup
 import os
 import json
+import re
 import time
 import random
 import pandas as pd
@@ -56,8 +57,13 @@ class ScreenerScraper:
 
         soup = BeautifulSoup(html, "html.parser")
 
+        company_name, sector, industry = self.extract_profile(soup)
+
         data = {
             "company": company_code,
+            "company_name": company_name,
+            "sector": sector,
+            "industry": industry,
             "quarterly_results": self.extract_table(
                 soup,
                 "quarters"
@@ -78,12 +84,52 @@ class ScreenerScraper:
                 soup,
                 "ratios"
             ),
+            # Section has two tables: [0] quarterly, [1] yearly. Take yearly to
+            # match the '-03-31' annual convention used by the other statements.
+            "shareholding": self.extract_table(
+                soup,
+                "shareholding",
+                table_index=1
+            ),
             "ratios": self.extract_ratios(soup)
         }
 
         return data
 
-    def extract_table(self, soup, section_id):
+    def extract_profile(self, soup):
+        """Pulls company name plus Screener's sector/industry classification.
+
+        Screener links classification as /market/IN08/ (top-level sector) down to
+        /market/IN08/IN0801/IN080101/ (industry); depth of the href is the level.
+        """
+        name = None
+        h1 = soup.find("h1")
+        if h1:
+            name = h1.text.strip()
+
+        sector = None
+        industry = None
+
+        for a in soup.find_all("a", href=True):
+            href = a["href"]
+            if not href.startswith("/market/IN"):
+                continue
+
+            label = a.get_text(strip=True)
+            if not label:
+                continue
+
+            # '/market/IN08/' -> one code segment -> top-level sector
+            segments = [s for s in href.split("/") if s]
+            if len(segments) == 2 and sector is None:
+                sector = label
+            elif len(segments) > 2:
+                # deepest link wins as the specific industry
+                industry = label
+
+        return name, sector, industry
+
+    def extract_table(self, soup, section_id, table_index=0):
 
         try:
 
@@ -96,11 +142,13 @@ class ScreenerScraper:
                 print(f"Section not found: {section_id}")
                 return {}
 
-            table = section.find("table")
+            tables = section.find_all("table")
 
-            if not table:
+            if len(tables) <= table_index:
                 print(f"No table found in: {section_id}")
                 return {}
+
+            table = tables[table_index]
 
             headers = []
 
@@ -205,7 +253,7 @@ def save_and_display_data(data, company_code):
     with pd.ExcelWriter(excel_filename, engine="openpyxl") as writer:
         
         # Process Tables
-        sections = ["quarterly_results", "profit_loss", "balance_sheet", "cash_flow", "ratios_table"]
+        sections = ["quarterly_results", "profit_loss", "balance_sheet", "cash_flow", "ratios_table", "shareholding"]
         
         for section in sections:
             table_data = data.get(section)
@@ -245,11 +293,12 @@ def save_and_display_data(data, company_code):
 # ============================================
 
 def get_all_tickers():
-    import sqlite3
-    conn = sqlite3.connect("financial_intelligence.db")
+    from db import get_connection
+    conn = get_connection()
     cursor = conn.cursor()
     cursor.execute("SELECT ticker FROM companies ORDER BY ticker")
     tickers = [r[0] for r in cursor.fetchall()]
+    cursor.close()
     conn.close()
     return tickers
 

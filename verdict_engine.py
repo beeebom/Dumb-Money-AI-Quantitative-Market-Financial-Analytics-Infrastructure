@@ -1,23 +1,23 @@
-import sqlite3
 import json
 import os
 from pathlib import Path
 from dotenv import load_dotenv
 from google import genai
 from google.genai import types
+from db import get_connection
 
 load_dotenv(Path(__file__).parent / ".env")
 
 def get_financial_metric(cursor, ticker, metric_substring, statement_type=None, limit=1):
     """Helper to fetch the most recent data point for a metric."""
-    query = "SELECT financial_value, metric_slug FROM financial_records WHERE ticker = ? AND metric_slug LIKE ?"
+    query = "SELECT financial_value, metric_slug FROM financial_records WHERE ticker = %s AND metric_slug LIKE %s"
     params = [ticker, f"%{metric_substring}%"]
-    
+
     if statement_type:
-        query += " AND statement_type = ?"
+        query += " AND statement_type = %s"
         params.append(statement_type)
-        
-    query += " ORDER BY period_date DESC LIMIT ?"
+
+    query += " ORDER BY period_date DESC LIMIT %s"
     params.append(limit)
     
     cursor.execute(query, params)
@@ -141,11 +141,11 @@ def generate_four_pillars_verdict(ticker):
 
     # 2. Database missing cache - Calculate purely via Python math
     print(f"\n[CALCULATING] Computing pure mathematical scores for {ticker}...")
-    conn = sqlite3.connect("financial_intelligence.db")
+    conn = get_connection()
     cursor = conn.cursor()
-    
+
     # Verify ticker exists
-    cursor.execute("SELECT company_name FROM companies WHERE ticker = ?", (ticker,))
+    cursor.execute("SELECT company_name FROM companies WHERE ticker = %s", (ticker,))
     if not cursor.fetchone():
         print(f"Error: No data found for {ticker} in the database. Run the scraper first.")
         conn.close()

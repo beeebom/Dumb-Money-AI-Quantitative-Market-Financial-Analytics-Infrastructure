@@ -7,7 +7,7 @@ venv/
 .claude/
 
 # output data
-
+*.log
 
 # python
 __pycache__/

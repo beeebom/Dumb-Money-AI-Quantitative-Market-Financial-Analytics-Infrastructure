@@ -1,9 +1,9 @@
-import sqlite3
 import pandas as pd
 import glob
 import os
 import re
 import json
+from db import ensure_schema, get_connection
 
 def make_clean_slug(text):
     """Cleans your Excel row title headers into standard code tokens ('OPM %' -> 'opm_percentage')"""
@@ -31,27 +31,63 @@ tab_mapping = {
     'Profit Loss': 'profit_loss',
     'Balance Sheet': 'balance_sheet',
     'Cash Flow': 'cash_flow',
-    'Ratios Table': 'ratios'
+    'Ratios Table': 'ratios',
+    'Shareholding': 'shareholding'
 }
+
+def read_scraped_profile(ticker):
+    """Reads company_name/sector/industry from the scraper's JSON sidecar.
+
+    Returns empty dict when the JSON is missing or predates sector scraping, so
+    the DB keeps whatever it already had rather than overwriting it with nulls.
+    """
+    json_path = os.path.join("json_data", f"{ticker}.json")
+    if not os.path.exists(json_path):
+        return {}
+
+    try:
+        with open(json_path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+    except (json.JSONDecodeError, OSError):
+        return {}
+
+    return {
+        "company_name": data.get("company_name"),
+        "sector": data.get("sector"),
+        "industry": data.get("industry"),
+    }
+
 
 def populate_single_stock(file_path):
     """Parses a single Excel file and inserts its data into the database."""
-    # 1. Open connection to your existing database file
-    conn = sqlite3.connect("financial_intelligence.db")
+    # 1. Make sure tables/indexes exist, then open connection
+    ensure_schema()
+    conn = get_connection()
     cursor = conn.cursor()
-    cursor.execute("PRAGMA foreign_keys = ON;")
-    
+
     # Extract ticker name from the file name
     filename = os.path.basename(file_path)
     ticker = filename.replace(".xlsx", "").upper().strip()
-    
+
     print(f"\n[Database Pipeline] Processing Workbook: {ticker}")
-    
-    # 2. Add the company profile line item to Table 1 first
+
+    # 2. Add the company profile to Table 1 first, using the classification the
+    # scraper saved alongside the workbook. Re-scrapes refresh it via ON CONFLICT.
+    profile = read_scraped_profile(ticker)
+
     cursor.execute("""
-    INSERT OR IGNORE INTO companies (ticker, company_name, sector, index_category)
-    VALUES (?, ?, 'Unassigned Sector', 'Unassigned Index');
-    """, (ticker, f"{ticker} Corporate Entity"))
+    INSERT INTO companies (ticker, company_name, sector, index_category)
+    VALUES (%s, %s, %s, %s)
+    ON CONFLICT (ticker) DO UPDATE SET
+        company_name   = COALESCE(EXCLUDED.company_name, companies.company_name),
+        sector         = COALESCE(EXCLUDED.sector, companies.sector),
+        index_category = COALESCE(EXCLUDED.index_category, companies.index_category);
+    """, (
+        ticker,
+        profile.get("company_name") or f"{ticker} Corporate Entity",
+        profile.get("sector"),
+        profile.get("industry"),
+    ))
 
     # 3. Read the Excel file tabs
     try:
@@ -107,11 +143,17 @@ def populate_single_stock(file_path):
                 except ValueError:
                     continue # Skips non-numeric textual lines safely
                     
-        # 4. Insert all data items for this sheet vertically into Table 2
+        # 4. Insert all data items for this sheet vertically into Table 2.
+        # ON CONFLICT upserts so re-scraping a ticker updates existing cells
+        # instead of duplicating them (requires the unique index from db.py).
         if batch_tray:
             cursor.executemany("""
             INSERT INTO financial_records (ticker, statement_type, period_date, metric_slug, original_metric_name, financial_value)
-            VALUES (?, ?, ?, ?, ?, ?);
+            VALUES (%s, %s, %s, %s, %s, %s)
+            ON CONFLICT (ticker, statement_type, period_date, metric_slug)
+            DO UPDATE SET
+                original_metric_name = EXCLUDED.original_metric_name,
+                financial_value = EXCLUDED.financial_value;
             """, batch_tray)
             print(f"     Loaded {len(batch_tray)} cells into database.")
 

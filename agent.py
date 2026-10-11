@@ -1,14 +1,13 @@
-import sqlite3
 import os
 from pathlib import Path
 from dotenv import load_dotenv
 from google import genai
 from google.genai import types
+from db import get_connection
 
 load_dotenv(Path(__file__).parent / ".env")
 
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
-DB_PATH        = "financial_intelligence.db"
 PROMPT_PATH    = "promt.txt"
 MAX_RETRIES    = 2
 
@@ -57,8 +56,6 @@ Fix the SQL and return only the corrected query."""
     return sql
 
 
-# ─── STEP 2: EXECUTE SQL (pure Python, no AI) ─────────────────────────────────
-
 def validate_sql(sql):
     for op in FORBIDDEN_OPS:
         if op in sql.upper().split():
@@ -68,7 +65,7 @@ def validate_sql(sql):
 def execute_sql(sql):
     validate_sql(sql)
 
-    conn = sqlite3.connect(DB_PATH)
+    conn = get_connection()
     try:
         cursor = conn.cursor()
         cursor.execute(sql)

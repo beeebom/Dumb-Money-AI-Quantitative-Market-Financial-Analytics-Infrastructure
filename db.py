@@ -1,33 +1,60 @@
-import sqlite3
+import os
+from pathlib import Path
+from dotenv import load_dotenv
+import psycopg2
 
-# 1. Create and connect to the central database file
-conn = sqlite3.connect("financial_intelligence.db")
-cursor = conn.cursor()
+load_dotenv(Path(__file__).parent / ".env")
 
-# Enforce rules between tables
-cursor.execute("PRAGMA foreign_keys = ON;")
+SUPABASE_DB_URL = os.getenv("SUPABASE_DB_URL", "")
 
-# 2. Initialize Table 1: The Company Address Book
-cursor.execute("""
-CREATE TABLE IF NOT EXISTS companies (
-    ticker TEXT PRIMARY KEY,
-    company_name TEXT,
-    sector TEXT,
-    index_category TEXT
-);
-""")
 
-# 3. Initialize Table 2: The Vertical Financial Vault
-cursor.execute("""
-CREATE TABLE IF NOT EXISTS financial_records (
-    record_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    ticker TEXT,
-    statement_type TEXT,
-    period_date TEXT,
-    metric_slug TEXT,
-    original_metric_name TEXT,
-    financial_value REAL,
-    FOREIGN KEY(ticker) REFERENCES companies(ticker)
-);
-""")
-conn.commit()
+def get_connection():
+    """Returns a new connection to the Supabase Postgres database."""
+    if not SUPABASE_DB_URL:
+        raise ValueError("SUPABASE_DB_URL not set. Add it to your .env file.")
+    return psycopg2.connect(SUPABASE_DB_URL)
+
+
+def ensure_schema():
+    """Creates tables/indexes if missing. Safe to call on every run."""
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    # 1. Company Address Book
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS companies (
+        ticker TEXT PRIMARY KEY,
+        company_name TEXT,
+        sector TEXT,
+        index_category TEXT
+    );
+    """)
+
+    # 2. Vertical Financial Vault
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS financial_records (
+        record_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+        ticker TEXT REFERENCES companies(ticker),
+        statement_type TEXT,
+        period_date TEXT,
+        metric_slug TEXT,
+        original_metric_name TEXT,
+        financial_value DOUBLE PRECISION
+    );
+    """)
+
+    # One value per (ticker, statement_type, period_date, metric_slug).
+    # Lets repeated scrapes UPSERT instead of duplicating rows.
+    cursor.execute("""
+    CREATE UNIQUE INDEX IF NOT EXISTS idx_financial_records_unique
+    ON financial_records (ticker, statement_type, period_date, metric_slug);
+    """)
+
+    conn.commit()
+    cursor.close()
+    conn.close()
+
+
+if __name__ == "__main__":
+    ensure_schema()
+    print("Schema ready on Supabase.")
